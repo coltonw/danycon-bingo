@@ -1,0 +1,219 @@
+/* ===== Reset & Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* ===== Toolbar ===== */
+#toolbar {
+  padding: 1rem;
+  text-align: center;
+  background: #eeeeff;
+  border-bottom: 2px solid #aaa;
+}
+
+#toolbar h1 {
+  color: #111;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+#regenerate-btn {
+  padding: 0.5rem 1.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+  color: #111;
+  border: 2px solid #555;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+#regenerate-btn:hover {
+  background: #e0e0ff;
+}
+
+/* ===== Cards Grid ===== */
+#cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== Individual Card ===== */
+.card {
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card-label {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.3rem;
+  background: #fff;
+  color: #111;
+  border-bottom: 2px solid #333;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ===== Bingo Table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td {
+  border: 1px solid #555;
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* The inner div enforces square cells regardless of table layout. */
+.cell-inner {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  text-align: center;
+  line-height: 1.2;
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* ===== Free Space ===== */
+td.free-space .cell-inner {
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* ===== Font Size Tiers ===== */
+.fit-xl {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.fit-lg {
+  font-size: 1.2rem;
+}
+
+.fit-md {
+  font-size: 1rem;
+}
+
+.fit-sm {
+  font-size: 0.83rem;
+}
+
+.fit-xs {
+  font-size: 0.68rem;
+}
+
+/* ===== Error State ===== */
+.error {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  color: #c00;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0.4in;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  #toolbar {
+    display: none;
+  }
+
+  #cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.2in;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .card {
+    break-inside: avoid;
+    border-radius: 0;
+  }
+
+  /* Insert a page break after every 2nd card (each pair = one landscape page). */
+  .card:nth-child(2n) {
+    break-after: page;
+  }
+
+  /* Last card: no trailing blank page. Must come after the nth-child rule. */
+  .card:last-child {
+    break-after: avoid;
+  }
+
+  td {
+    break-inside: avoid;
+    border: none;
+  }
+
+  /*
+   * border-collapse: collapse borders are dropped by both Firefox and Chromium
+   * print renderers. box-shadow on .cell-inner renders reliably because it is
+   * treated as element graphics rather than a CSS border.
+   * Must be on .cell-inner (not td) because the free-space .cell-inner has
+   * an explicit background that would cover a box-shadow on its parent td.
+   */
+  .cell-inner {
+    box-shadow: inset 0 0 0 1px #555;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Slightly tighten font sizes for print to fit more text. */
+  .fit-xl {
+    font-size: 1.3rem;
+  }
+
+  .fit-lg {
+    font-size: 1.05rem;
+  }
+
+  .fit-md {
+    font-size: 0.88rem;
+  }
+
+  .fit-sm {
+    font-size: 0.72rem;
+  }
+
+  .fit-xs {
+    font-size: 0.6rem;
+  }
+}

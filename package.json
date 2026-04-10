@@ -1,0 +1,21 @@
+{
+  "name": "danycon-bingo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "biome check .",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0"
+  }
+}
